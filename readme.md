@@ -12,11 +12,12 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-1. Run the script:
+1. Open your `modpack.mrpack` file using 7Zip, WinRAR or simmilar and extract it.
+2. Run the script:
     ```sh
     python main.py
     ```
-2. Enter the path to the modrinth.index.json file (from the modpack) OR paste the contents of it into `./modrinth.index.json`
+3. Enter the path to the modrinth.index.json file (from the modpack) OR paste the contents of it into `./modrinth.index.json`
 
 
 ## How?
