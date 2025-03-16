@@ -17,7 +17,7 @@ pip install -r requirements.txt
     ```sh
     python main.py
     ```
-3. Enter the path to the `modrinth.index.json` file (from the modpack) OR paste the contents of it into `./modrinth.index.json`
+3. Enter the path to the `modrinth.index.json` file (from the modpack) OR paste the contents of it into `./modrinth.index.json` (created automatically)
 
 
 ## How?
