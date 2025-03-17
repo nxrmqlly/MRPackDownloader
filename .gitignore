@@ -1,3 +1,6 @@
-.venv/
+
+*.exe~
+*.exe
 returns/
 modrinth.index.json
+*.py
