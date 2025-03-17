@@ -7,11 +7,11 @@ builds:
     goarch: [amd64, arm64]
 
 archives:
-  - format: tar.gz
+  - formats: [tar.gz]
     name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}_{{- if .Arm }}v{{ .Arm }}{{ end }}"
     format_overrides:
       - goos: windows
-        format: zip
+        formats: [zip]
 
 release:
   footer: "*good things take time*"
