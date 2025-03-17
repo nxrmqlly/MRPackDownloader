@@ -19,7 +19,7 @@ A tool/script to download content from a modrinth modpack (`.mrpack` files). It 
 ## Usage
 
 1. Get the latest binary from the Releases Tab
-2. Open your `<modpack>.mrpack` file using 7Zip, WinRAR or simmilar and extract it.
+2. Open your `<modpack>.mrpack` file using 7Zip, WinRAR or similar and extract it.
 3. Run the script:
 
     ```sh
