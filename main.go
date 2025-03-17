@@ -46,7 +46,7 @@ func downloadFiles(toSave map[string]FileEntry) {
 
 	for name, entry := range toSave {
 		if len(entry.Downloads) == 0 {
-			fmt.Println(color.RedString("[ERR] No download URL for %s", name))
+			fmt.Println(color.YellowString("[WARN] No download URL for %s", name))
 			continue
 		}
 
@@ -61,11 +61,11 @@ func downloadFiles(toSave map[string]FileEntry) {
 		defer resp.Body.Close()
 
 		if resp.StatusCode != http.StatusOK {
-			fmt.Printf("[%s] Failed to fetch %s\n", color.RedString("%d", resp.StatusCode), color.YellowString(name))
+			fmt.Printf("[%s] Failed to fetch %s\n", color.RedString("%d", resp.StatusCode), color.CyanString(name))
 			continue
 		}
 
-		fmt.Printf("[%s] Saving %s\n", color.GreenString("%d", resp.StatusCode), color.YellowString(name))
+		fmt.Printf("[%s] Saving %s\n", color.GreenString("%d", resp.StatusCode), color.CyanString(name))
 
 		outputFilePath := path.Join("returns", fpath)
 		if err := os.MkdirAll(filepath.Dir(outputFilePath), os.ModePerm); err != nil {
@@ -96,27 +96,32 @@ func main() {
 	defaultPath := "./modrinth.index.json"
 	var filePath string
 
-	// ensure the modrinth.index.json exists
-	if _, err := os.Stat(defaultPath); os.IsNotExist(err) {
-		_, err := os.Create(defaultPath)
-		if err != nil {
-			fmt.Println(color.RedString("[ERR] Failed to create default file: %s", err))
-			os.Exit(1)
-		}
-	}
-
-	fmt.Printf("Enter the path to the %s file\n", color.GreenString("modrinth.index.json"))
-	fmt.Printf("Or press Enter to use default %s:\n", color.YellowString(defaultPath))
-	fmt.Print(color.GreenString("> "))
-
-	reader := bufio.NewReader(os.Stdin)
-	input, _ := reader.ReadString('\n')
-	input = strings.TrimSpace(input)
-
-	if input == "" {
-		filePath = defaultPath
+	// If an argument is passed, use it as the file path
+	if len(os.Args) > 1 {
+		filePath = os.Args[1]
 	} else {
-		filePath = input
+		// Ensure the modrinth.index.json exists
+		if _, err := os.Stat(defaultPath); os.IsNotExist(err) {
+			_, err := os.Create(defaultPath)
+			if err != nil {
+				fmt.Println(color.RedString("[ERR] Failed to create default file: %s", err))
+				os.Exit(1)
+			}
+		}
+
+		fmt.Printf("Enter the path to the %s file\n", color.GreenString("modrinth.index.json"))
+		fmt.Printf("Or press Enter to use default %s:\n", color.CyanString(defaultPath))
+		fmt.Print(color.GreenString("> "))
+
+		reader := bufio.NewReader(os.Stdin)
+		input, _ := reader.ReadString('\n')
+		input = strings.TrimSpace(input)
+
+		if input == "" {
+			filePath = defaultPath
+		} else {
+			filePath = input
+		}
 	}
 
 	mrIndex, err := getModrinthIndex(filePath)
