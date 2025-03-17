@@ -1,5 +1,8 @@
-# MRPackDownloader
+# MRPackDownloader (Deprecated)
 A tool/script to download content from a modrinth modpack (`.mrpack` files). It extracts and saves all mods, resource packs, and other assets listed in the modpack.
+
+## Deprecation Notice
+MRPackDownloader was originally written in python, but now, it has been rewritten in Go(lang). This branch still works, but it will no longer receive updates or bug fixes.
 
 ## Requirements
 - Python 3.8+
@@ -12,7 +15,7 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-1. Open your `<modpack>.mrpack` file using 7Zip, WinRAR or simmilar and extract it.
+1. Open your `<modpack>.mrpack` file using 7Zip, WinRAR or similar and extract it.
 2. Run the script:
     ```sh
     python main.py
