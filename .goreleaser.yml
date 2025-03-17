@@ -14,4 +14,8 @@ archives:
         formats: [zip]
 
 release:
-  footer: "*good things take time*"
+  footer: ""
+
+changelog:
+  sort: asc
+  use: short_commit
