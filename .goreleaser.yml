@@ -8,7 +8,7 @@ builds:
 
 archives:
   - formats: [tar.gz]
-    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}_{{- if .Arm }}v{{ .Arm }}{{ end }}"
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{- if .Arm }}_v{{ .Arm }}{{ end }}"
     format_overrides:
       - goos: windows
         formats: [zip]
