@@ -17,5 +17,4 @@ release:
   footer: ""
 
 changelog:
-  sort: asc
-  use: short_commit
+  use: github
