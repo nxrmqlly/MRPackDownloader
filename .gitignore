@@ -8,6 +8,9 @@ output/
 modrinth.index.json
 
 *.py
+.env
 
 *.test
 *.log
+# Added by goreleaser init:
+dist/

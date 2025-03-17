@@ -17,13 +17,19 @@ A tool/script to download content from a modrinth modpack (`.mrpack` files). It 
 
 
 ## Usage
+1. Run the following:
+    
+    ```sh
+    go install github.com/nxrmqlly/MRPackDownloader@latest
+    ```
+    
+    - or, Get the latest binary from the Releases Tab
 
-1. Get the latest binary from the Releases Tab
 2. Open your `<modpack>.mrpack` file using 7Zip, WinRAR or similar and extract it.
 3. Run the script:
 
     ```sh
-    ./mrpackdownloader
+    mrpackdownloader 
     ```
 
 4. Enter the path to the `modrinth.index.json` file (from the modpack) OR paste the contents of it into `./modrinth.index.json` (created automatically)
