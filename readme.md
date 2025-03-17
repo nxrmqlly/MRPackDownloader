@@ -4,7 +4,7 @@ A tool/script to download content from a modrinth modpack (`.mrpack` files). It 
 
 <details>
 <summary>Image</summary>
-<p>The tool downloading jars for the <a href="https://modrinth.com/modpack/performium-was-taken">Performium modpack</a> with a deliberate 404 on one of the mods.
+<p>The tool downloading assets from the <a href="https://modrinth.com/modpack/performium-was-taken">Performium Modpack</a> with a deliberate 404 on one of the mods.
 </p>
 
 ![Image of the tool](https://i.imgur.com/QzXCTVQ.png)
@@ -22,8 +22,8 @@ A tool/script to download content from a modrinth modpack (`.mrpack` files). It 
     ```sh
     go install github.com/nxrmqlly/MRPackDownloader@latest
     ```
-    
-    - or, Get the latest binary from the Releases Tab
+
+    - or, Get the latest binary from the [Releases Tab](https://github.com/nxrmqlly/MRPackDownloader/releases)
 
 2. Open your `<modpack>.mrpack` file using 7Zip, WinRAR or similar and extract it.
 3. Run the script:
