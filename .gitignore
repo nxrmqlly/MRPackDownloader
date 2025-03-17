@@ -14,3 +14,5 @@ modrinth.index.json
 *.log
 # Added by goreleaser init:
 dist/
+# Added by goreleaser init:
+dist/
