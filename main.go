@@ -67,7 +67,7 @@ func downloadFiles(toSave map[string]FileEntry) {
 
 		fmt.Printf("[%s] Saving %s\n", color.GreenString("%d", resp.StatusCode), color.CyanString(name))
 
-		outputFilePath := path.Join("returns", fpath)
+		outputFilePath := path.Join("output", fpath)
 		if err := os.MkdirAll(filepath.Dir(outputFilePath), os.ModePerm); err != nil {
 			fmt.Println(color.RedString("[ERR] Failed to create directories for %s: %s", name, err))
 			continue
