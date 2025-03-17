@@ -24,7 +24,7 @@ type FileEntry struct {
 	Downloads []string `json:"downloads"`
 }
 
-// unmarshal the json file into a struct
+// Unmarshal the JSON file into a struct
 func getModrinthIndex(filePath string) (*ModrinthIndex, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -39,13 +39,17 @@ func getModrinthIndex(filePath string) (*ModrinthIndex, error) {
 	return &index, nil
 }
 
-
-// download the files from the modrinth index
+// Download the files from the Modrinth index
 func downloadFiles(toSave map[string]FileEntry) {
 	total := len(toSave)
 	saved := 0
 
 	for name, entry := range toSave {
+		if len(entry.Downloads) == 0 {
+			fmt.Println(color.RedString("[ERR] No download URL for %s", name))
+			continue
+		}
+
 		url := entry.Downloads[0]
 		fpath := entry.Path
 
@@ -54,17 +58,14 @@ func downloadFiles(toSave map[string]FileEntry) {
 			fmt.Println(color.RedString("[ERR] Failed to fetch %s: %s", name, err))
 			continue
 		}
+		defer resp.Body.Close()
 
-		var codeColored string
-		if resp.StatusCode == 200 {
-			codeColored = color.GreenString("%d", resp.StatusCode)
-		} else {
-			codeColored = color.RedString("%d", resp.StatusCode)
+		if resp.StatusCode != http.StatusOK {
+			fmt.Printf("[%s] Failed to fetch %s\n", color.RedString("%d", resp.StatusCode), color.YellowString(name))
+			continue
 		}
 
-		fmt.Printf("[%s] Saving %s\n",
-			codeColored, color.YellowString(name),
-		)
+		fmt.Printf("[%s] Saving %s\n", color.GreenString("%d", resp.StatusCode), color.YellowString(name))
 
 		outputFilePath := path.Join("returns", fpath)
 		if err := os.MkdirAll(filepath.Dir(outputFilePath), os.ModePerm); err != nil {
@@ -77,12 +78,14 @@ func downloadFiles(toSave map[string]FileEntry) {
 			fmt.Println(color.RedString("[ERR] Failed to create file %s: %s", name, err))
 			continue
 		}
-		defer outFile.Close()
 
 		if _, err := io.Copy(outFile, resp.Body); err != nil {
 			fmt.Println(color.RedString("[ERR] Failed to save %s: %s", name, err))
+			outFile.Close()
 			continue
 		}
+		outFile.Close()
+
 		saved++
 	}
 
@@ -93,14 +96,13 @@ func main() {
 	defaultPath := "./modrinth.index.json"
 	var filePath string
 
-	// try creating the file if it doesn't exist
-	file, err := os.OpenFile(defaultPath, os.O_CREATE|os.O_EXCL, 0644)
-	if err != nil {
-		if !os.IsExist(err) {
-			panic(err)
+	// ensure the modrinth.index.json exists
+	if _, err := os.Stat(defaultPath); os.IsNotExist(err) {
+		_, err := os.Create(defaultPath)
+		if err != nil {
+			fmt.Println(color.RedString("[ERR] Failed to create default file: %s", err))
+			os.Exit(1)
 		}
-	} else {
-		file.Close()
 	}
 
 	fmt.Printf("Enter the path to the %s file\n", color.GreenString("modrinth.index.json"))
